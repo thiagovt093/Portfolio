@@ -50,7 +50,7 @@ export default function NavBar() {
                                 </Link>
                             </NavigationMenuItem>
                             <NavigationMenuItem>
-                                <Link href="https://w.app/JDTdlH" target="_blank" legacyBehavior passHref>
+                                <Link href="https://api.whatsapp.com/send?phone=5577988217247" target="_blank" legacyBehavior passHref>
                                     <NavigationMenuLink className={navLinkStyle}>
                                         Contato
                                     </NavigationMenuLink>
