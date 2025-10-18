@@ -28,7 +28,7 @@ export default function Home() {
               <div className="mt-6 flex justify-center lg:justify-start">
                 {/* Apenas o Link envolve o Button */}
                 <Button className="bg-azure-800 text-white flex items-center space-x-2" asChild>
-                  <Link href="https://w.app/JDTdlH" target="_blank" rel="noopener noreferrer">
+                  <Link href="https://api.whatsapp.com/send?phone=5577988217247" target="_blank" rel="noopener noreferrer">
                     <WhatsappLogo size={32} weight="bold" />
                     <span>Vamos Conversar?</span>
                   </Link>
