@@ -1,27 +1,59 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import { Montserrat } from "next/font/google";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat-sans",
+import "./globals.css";
+
+import { Space_Grotesk } from "next/font/google";
+
+import openGraphImage from "../../public/icon.png";
+
+const space = Space_Grotesk({
   subsets: ["latin"],
+  variable: "--font-space",
 });
 
-import openGraphImage from '../../public/icon.png';
-
 export const metadata: Metadata = {
-  title: "Portfólio",
-  description:"Bem-vindo ao meu portfólio! Aqui, você encontrará uma coleção de projetos e soluções criadas com dedicação e expertise. Como desenvolvedor Fullstack, uso tecnologias modernas para construir experiências digitais únicas e eficientes. Navegue pelo meu trabalho e descubra como posso transformar suas ideias em realidade com soluções web inovadoras.",
+ metadataBase: new URL(
+  process.env.NEXT_PUBLIC_SITE_URL ||
+    "http://localhost:3000"
+),
+
+  title: {
+    default: "Thiago Vitor",
+    template: "%s | Thiago Vitor",
+  },
+
+  description:
+    "Fullstack & Mobile Developer especializado em Next.js, Flutter, Java e Spring Boot.",
+
   openGraph: {
+    title: "Thiago Vitor",
+
+    description:
+      "Desenvolvedor Fullstack & Mobile criando aplicações modernas.",
+
     images: [
       {
-        url: openGraphImage.src,  
-        width: 800,
-        height: 600,
-        alt: 'Portfólio',
+        url: openGraphImage.src,
+        width: 1200,
+        height: 630,
+        alt: "Thiago Vitor",
       },
     ],
-    title: 'Portfólio',
+  },
+
+  twitter: {
+    card: "summary_large_image",
+
+    title: "Thiago Vitor",
+
+    description:
+      "Fullstack & Mobile Developer",
+
+    images: [openGraphImage.src],
+  },
+
+  icons: {
+    icon: "/icon.png",
   },
 };
 
@@ -31,12 +63,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="dark">
-      <head>
-        <link rel="icon" href="/icon.png" sizes="any" />
-      </head>
+    <html
+      lang="pt-BR"
+      className="dark scroll-smooth"
+    >
       <body
-        className={`${montserrat.className} antialiased bg-azure-950`}
+        className={`${space.className} bg-black text-white antialiased overflow-x-hidden`}
       >
         {children}
       </body>

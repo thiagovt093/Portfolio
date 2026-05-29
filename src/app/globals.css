@@ -70,3 +70,55 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+  background: black;
+}
+
+::selection {
+  background: #22d3ee;
+  color: black;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #164e63;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0891b2;
+}
+
+/* NOISE */
+
+body::before {
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  background-image:
+    url("https://grainy-gradients.vercel.app/noise.svg");
+
+  opacity: 0.03;
+
+  pointer-events: none;
+
+  z-index: 9999;
+}
