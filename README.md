@@ -17,7 +17,7 @@ Bem-vindo ao repositório do meu portfólio profissional, desenvolvido para apre
 ## 📦 Como Executar o Projeto
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
+   https://github.com/thiagovt093/Portfolio.git
    ```
 2. Acesse o diretório do projeto:
    ```bash
