@@ -1,7 +1,7 @@
 ﻿import GithubProjects from "./components/github-projects";
 
 import { getGithubRepos } from "./api/github/github";
-import { GithubLogo, WhatsappLogo, Rocket, FolderOpen, Database, Lightning } from "@phosphor-icons/react/dist/ssr";
+import { GithubLogoIcon, WhatsappLogoIcon, RocketIcon, FolderOpenIcon, DatabaseIcon, LightningIcon } from "@phosphor-icons/react/dist/ssr";
 export const revalidate = 3600;
 
 export default async function Home() {
@@ -46,7 +46,7 @@ export default async function Home() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 rounded-2xl bg-cyan-400 px-8 py-4 font-semibold text-black transition duration-300 hover:-translate-y-1 hover:scale-[1.01]"
             >
-              <GithubLogo size={20} />
+              <GithubLogoIcon size={20} />
               Github
             </a>
 
@@ -56,7 +56,7 @@ export default async function Home() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-8 py-4 font-semibold transition duration-300 hover:-translate-y-1 hover:border-cyan-400/30"
             >
-              <WhatsappLogo size={20} />
+              <WhatsappLogoIcon size={20} />
               Contact Me
             </a>
           </div>
@@ -85,25 +85,25 @@ export default async function Home() {
 
           <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 fade-up delay-700">
             <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_24px_80px_-52px_rgba(34,211,238,0.45)]">
-              <FolderOpen size={28} className="text-cyan-400" />
+              <FolderOpenIcon size={28} className="text-cyan-400" />
               <h3 className="text-4xl font-black mt-4">{repos.featured.length + repos.others.length}</h3>
               <p className="text-zinc-500 mt-2">Public Repositories</p>
             </div>
 
             <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_24px_80px_-52px_rgba(34,211,238,0.45)]">
-              <Rocket size={28} className="text-cyan-400" />
+              <RocketIcon size={28} className="text-cyan-400" />
               <h3 className="text-4xl font-black mt-4">4+</h3>
               <p className="text-zinc-500 mt-2">Years Learning</p>
             </div>
 
             <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_24px_80px_-52px_rgba(34,211,238,0.45)]">
-              <Database size={28} className="text-cyan-400" />
+              <DatabaseIcon size={28} className="text-cyan-400" />
               <h3 className="text-4xl font-black mt-4">Java</h3>
               <p className="text-zinc-500 mt-2">Main Focus</p>
             </div>
 
             <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_24px_80px_-52px_rgba(34,211,238,0.45)]">
-              <Lightning size={28} className="text-cyan-400" />
+              <LightningIcon size={28} className="text-cyan-400" />
               <h3 className="text-4xl font-black mt-4">Fullstack</h3>
               <p className="text-zinc-500 mt-2">Developer</p>
             </div>
