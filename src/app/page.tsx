@@ -121,7 +121,7 @@ const translations = {
 export default async function Home({
   searchParams,
 }: {
-  searchParams?: { lang?: string | string[] } | Promise<{ lang?: string | string[] }>;
+  searchParams?: Promise<{ lang?: string | string[] }>;
 }) {
   const repos = await getGithubRepos();
   const params = await searchParams;
