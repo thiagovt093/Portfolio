@@ -1,18 +1,48 @@
 ﻿import { GithubResponse } from "../api/github/github";
 import { Rocket, Code, Star } from "@phosphor-icons/react/dist/ssr";
 
+type Locale = "en" | "pt-BR";
+
 type Props = {
   repos: GithubResponse;
+  locale: Locale;
 };
 
-export default function GithubProjects({
-  repos,
-}: Props) {
+const projectCopy = {
+  "pt-BR": {
+    sectionTitle: "Projetos em Destaque",
+    sectionSubtitle: "Projetos",
+    featuredLabel: "Projeto em Destaque",
+    latestTitle: "Últimos Projetos",
+    repository: "Repositório",
+    fallbackFeatured:
+      "Projeto de software moderno focado em performance, escalabilidade e experiência do usuário.",
+    fallbackOther:
+      "Projeto de software moderno focado em performance e manutenibilidade.",
+  },
+  en: {
+    sectionTitle: "Featured Projects",
+    sectionSubtitle: "Projects",
+    featuredLabel: "Featured Project",
+    latestTitle: "Latest Projects",
+    repository: "Repository",
+    fallbackFeatured:
+      "Modern software project focused on performance, scalability and user experience.",
+    fallbackOther:
+      "Modern software project focused on performance and maintainability.",
+  },
+};
+
+export default function GithubProjects({ repos, locale }: Props) {
+  const t = projectCopy[locale];
+
   return (
     <section id="projects" className="max-w-7xl mx-auto px-6 py-32 fade-up delay-1200">
       <div className="flex flex-col gap-3 mb-10">
-        <span className="text-cyan-400 uppercase tracking-[0.3em] text-sm">Projects</span>
-        <h2 className="text-5xl font-black">Featured Projects</h2>
+        <span className="text-cyan-400 uppercase tracking-[0.3em] text-sm">
+          {t.sectionSubtitle}
+        </span>
+        <h2 className="text-5xl font-black">{t.sectionTitle}</h2>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8 mb-24">
@@ -27,13 +57,13 @@ export default function GithubProjects({
           >
             <div className="inline-flex items-center gap-2 mb-4 text-cyan-400 text-sm">
               <Rocket size={18} />
-              Featured Project
+              {t.featuredLabel}
             </div>
 
             <h3 className="text-3xl font-bold">{repo.name}</h3>
 
             <p className="mt-4 text-zinc-400">
-              {repo.description ?? "Modern software project focused on performance, scalability and user experience."}
+              {repo.description ?? t.fallbackFeatured}
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3 text-sm">
@@ -51,7 +81,7 @@ export default function GithubProjects({
         ))}
       </div>
 
-      <h2 className="text-4xl font-black mb-10">Latest Projects</h2>
+      <h2 className="text-4xl font-black mb-10">{t.latestTitle}</h2>
 
       <div className="space-y-4">
         {repos.others.map((repo, index) => (
@@ -65,13 +95,13 @@ export default function GithubProjects({
           >
             <div className="flex items-center gap-2 text-zinc-500 text-sm mb-3">
               <Code size={16} />
-              Repository
+              {t.repository}
             </div>
 
             <h3 className="text-xl font-bold">{repo.name}</h3>
 
             <p className="mt-2 text-zinc-400">
-              {repo.description ?? "Modern software project focused on performance and maintainability."}
+              {repo.description ?? t.fallbackOther}
             </p>
           </a>
         ))}
