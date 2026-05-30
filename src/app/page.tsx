@@ -1,6 +1,6 @@
 import GithubProjects from "./components/github-projects";
 
-import { getGithubRepos } from "./api/github/route";
+import { getGithubRepos } from "./api/github/github";
 
 export const revalidate = 3600;
 

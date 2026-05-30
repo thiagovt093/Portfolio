@@ -6,7 +6,6 @@ type Repo = {
   stargazerCount: number;
   forkCount: number;
   updatedAt: string;
-
   primaryLanguage: {
     name: string;
   } | null;
@@ -18,26 +17,19 @@ export type GithubResponse = {
 };
 
 export async function getGithubRepos(): Promise<GithubResponse> {
-  const username =
-    process.env.GITHUB_USERNAME;
-
-  const token =
-    process.env.GITHUB_TOKEN;
+  const username = process.env.GITHUB_USERNAME;
+  const token = process.env.GITHUB_TOKEN;
 
   if (!username || !token) {
-    throw new Error(
-      "GitHub env variables missing"
-    );
+    throw new Error("Missing GitHub environment variables");
   }
 
   const query = `
     query($username: String!) {
-
       user(login: $username) {
 
         pinnedItems(first: 6, types: REPOSITORY) {
           nodes {
-
             ... on Repository {
               id
               name
@@ -55,17 +47,13 @@ export async function getGithubRepos(): Promise<GithubResponse> {
         }
 
         repositories(
-          first: 100,
-
+          first: 100
           orderBy: {
-            field: UPDATED_AT,
+            field: UPDATED_AT
             direction: DESC
-          },
-
-          privacy: PUBLIC,
-
-          ownerAffiliations: OWNER,
-
+          }
+          privacy: PUBLIC
+          ownerAffiliations: OWNER
           isFork: false
         ) {
           nodes {
@@ -93,8 +81,7 @@ export async function getGithubRepos(): Promise<GithubResponse> {
 
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type":
-          "application/json",
+        "Content-Type": "application/json",
       },
 
       body: JSON.stringify({
@@ -111,9 +98,7 @@ export async function getGithubRepos(): Promise<GithubResponse> {
   );
 
   if (!response.ok) {
-    throw new Error(
-      "Erro ao buscar GitHub"
-    );
+    throw new Error("GitHub API Error");
   }
 
   const result = await response.json();
