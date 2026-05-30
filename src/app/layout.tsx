@@ -12,10 +12,9 @@ const space = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
- metadataBase: new URL(
-  process.env.NEXT_PUBLIC_SITE_URL ||
-    "http://localhost:3000"
-),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  ),
 
   title: {
     default: "Thiago Vitor",
@@ -23,13 +22,13 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Fullstack & Mobile Developer especializado em Next.js, Flutter, Java e Spring Boot.",
+    "Fullstack & Mobile Developer focused on Java, Spring Boot, Next.js, Flutter and PostgreSQL. Building scalable software and modern digital experiences.",
 
   openGraph: {
-    title: "Thiago Vitor",
+    title: "Thiago Vitor | Fullstack Developer",
 
     description:
-      "Desenvolvedor Fullstack & Mobile criando aplicações modernas.",
+      "Fullstack & Mobile Developer focused on scalable web, mobile and backend solutions.",
 
     images: [
       {
@@ -44,10 +43,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Thiago Vitor",
+    title: "Thiago Vitor | Fullstack Developer",
 
     description:
-      "Fullstack & Mobile Developer",
+      "Fullstack & Mobile Developer focused on scalable web, mobile and backend solutions.",
 
     images: [openGraphImage.src],
   },
@@ -63,10 +62,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="pt-BR"
-      className="dark scroll-smooth"
-    >
+    <html lang="pt-BR" className="dark scroll-smooth">
       <body
         className={`${space.className} bg-black text-white antialiased overflow-x-hidden`}
       >
