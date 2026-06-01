@@ -14,6 +14,8 @@ type Repo = {
 export type GithubResponse = {
   featured: Repo[];
   others: Repo[];
+  totalCount: number;
+  lastUpdated: string;
 };
 
 export async function getGithubRepos(): Promise<GithubResponse> {
@@ -21,13 +23,18 @@ export async function getGithubRepos(): Promise<GithubResponse> {
   const token = process.env.GITHUB_TOKEN;
 
   if (!username || !token) {
-    throw new Error("Missing GitHub environment variables");
+    console.error("Missing GitHub environment variables");
+    return {
+      featured: [],
+      others: [],
+      totalCount: 0,
+      lastUpdated: new Date().toISOString(),
+    };
   }
 
   const query = `
     query($username: String!) {
       user(login: $username) {
-
         pinnedItems(first: 6, types: REPOSITORY) {
           nodes {
             ... on Repository {
@@ -38,20 +45,15 @@ export async function getGithubRepos(): Promise<GithubResponse> {
               stargazerCount
               forkCount
               updatedAt
-
               primaryLanguage {
                 name
               }
             }
           }
         }
-
         repositories(
           first: 100
-          orderBy: {
-            field: UPDATED_AT
-            direction: DESC
-          }
+          orderBy: { field: UPDATED_AT, direction: DESC }
           privacy: PUBLIC
           ownerAffiliations: OWNER
           isFork: false
@@ -64,7 +66,6 @@ export async function getGithubRepos(): Promise<GithubResponse> {
             stargazerCount
             forkCount
             updatedAt
-
             primaryLanguage {
               name
             }
@@ -74,50 +75,50 @@ export async function getGithubRepos(): Promise<GithubResponse> {
     }
   `;
 
-  const response = await fetch(
-    "https://api.github.com/graphql",
-    {
+  try {
+    const response = await fetch("https://api.github.com/graphql", {
       method: "POST",
-
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
+        "User-Agent": "Thiago-Vitor-Portfolio",
       },
-
-      body: JSON.stringify({
-        query,
-        variables: {
-          username,
-        },
-      }),
-
+      body: JSON.stringify({ query, variables: { username } }),
       next: {
-        revalidate: 3600,
+        revalidate: 3600, // 1 hora
+        tags: ["github-repos"],
       },
+    });
+
+    if (!response.ok) {
+      throw new Error(`GitHub API Error: ${response.status}`);
     }
-  );
 
-  if (!response.ok) {
-    throw new Error("GitHub API Error");
-  }
+    const result = await response.json();
 
-  const result = await response.json();
+    if (result.errors) {
+      throw new Error(result.errors[0].message);
+    }
 
-  const featured: Repo[] =
-    result.data.user.pinnedItems.nodes;
-
-  const pinnedIds = featured.map(
-    (repo) => repo.id
-  );
-
-  const others: Repo[] =
-    result.data.user.repositories.nodes.filter(
-      (repo: Repo) =>
-        !pinnedIds.includes(repo.id)
+    const featured: Repo[] = result.data.user.pinnedItems.nodes || [];
+    const pinnedIds = new Set(featured.map((repo) => repo.id));
+    const others: Repo[] = (result.data.user.repositories.nodes || []).filter(
+      (repo: Repo) => !pinnedIds.has(repo.id)
     );
 
-  return {
-    featured,
-    others,
-  };
+    return {
+      featured,
+      others,
+      totalCount: featured.length + others.length,
+      lastUpdated: new Date().toISOString(),
+    };
+  } catch (error) {
+    console.error("Failed to fetch GitHub repos:", error);
+    return {
+      featured: [],
+      others: [],
+      totalCount: 0,
+      lastUpdated: new Date().toISOString(),
+    };
+  }
 }
